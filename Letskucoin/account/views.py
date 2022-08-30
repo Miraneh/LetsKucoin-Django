@@ -3,13 +3,13 @@ from django.shortcuts import render, redirect
 from rest_framework.permissions import AllowAny
 from rest_framework.views import APIView
 
-from Letskucoin.account.models import User
+from Letskucoin.account.models import User, Position
 from Letskucoin.account.serializer import UserSerializer
 
 
 class SignUpView(APIView):
     queryset = User.objects.all()
-    permission_classes = (AllowAny, )
+    permission_classes = (AllowAny,)
     serializer = UserSerializer
 
     def get(self, request):
@@ -43,3 +43,10 @@ class LoginView(APIView):
         else:
             return render(request, "registration/login.html",
                           {"error": "Username or Password isn't correct"})
+
+
+class PositionsView(APIView):
+    def get(self, request):
+        return Position.objects.all()
+
+
