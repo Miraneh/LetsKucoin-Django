@@ -9,7 +9,7 @@ class User(AbstractUser):
 
 
 class Position(models.Model):
-    object = models.Manager()
+    objects = models.Manager()
     user_id = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     id = models.CharField(max_length=100)
     currency = models.CharField(max_length=10)
