@@ -1,102 +1,190 @@
-<input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-<h1 style="text-align: justify; color: blue;">Create an Account</h1>
-<br>
-<form action="" method="post">
-   {{ form.hidden_tag()}}
-   {{ form.csrf_token }}
-   <div>
-      {{ form.username(placeholder="username",
-      style='width: 50%;
-      font-weight: bold;
-      padding: 12px 20px ;
-      margin: 8px 0;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      box-sizing: border-box') }}
-      {% for error in form.username.errors %}
-      <p>{{ error }}</p>
-      {% endfor %}
-   </div>
-   <br>
-   <div>
-      {{ form.password1(placeholder="password",
-      style='width: 50%;
-      font-weight: bold;
-      padding: 12px 20px ;
-      margin: 8px 0;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      box-sizing: border-box') }}
-      {% for error in form.password1.errors %}
-      <p>{{ error }}</p>
-      {% endfor %}
-   </div>
-   <br>
-   <div>
-      {{ form.password2(placeholder="Confirm password",
-      style='width: 50%;
-      font-weight: bold;
-      padding: 12px 20px ;
-      margin: 8px 0;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      box-sizing: border-box') }}
-      {% for error in form.password2.errors %}
-      <p>{{ error }}</p>
-      {% endfor %}
-   </div>
-   <br>
-   <div>
-      {{ form.apik(placeholder="API Key",
-      style='width: 50%;
-      font-weight: bold;
-      padding: 12px 20px ;
-      margin: 8px 0;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      box-sizing: border-box') }}
-      {% for error in form.apik.errors %}
-      <p>{{ error }}</p>
-      {% endfor %}
-   </div>
-   <br>
-   <div>
-      {{ form.apis(placeholder="API Secret",
-      style='width: 50%;
-      font-weight: bold;
-      padding: 12px 20px ;
-      margin: 8px 0;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      box-sizing: border-box') }}
-      {% for error in form.apis.errors %}
-      <p>{{ error }}</p>
-      {% endfor %}
-   </div>
-   <br>
-   <div>
-      {{ form.apip(placeholder="API Passphrase",
-      style='width: 50%;
-      font-weight: bold;
-      padding: 12px 20px ;
-      margin: 8px 0;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      box-sizing: border-box') }}
-      {% for error in form.apip.errors %}
-      <p>{{ error }}</p>
-      {% endfor %}
-   </div>
-   <br>
-   <div>{{ form.submit(
-      style ='background-color: #4CAF50;
-      color: white;
-      width: 50%;
-      padding: 14px 20px;
-      margin: 8px 0;
-      border: none;
-      border-radius: 4px') }}
-   </div>
-</form>
-<p></p>
-<h3 style = "color: blue; margin-left:100px;"><a href="{{ url_for('login') }}">Already have an account?</a></h3>
+{% extends "base.html" %} {% load static %}
+{% block title %}Sign Up{%endblock%}
+{% block content %}
+<div class="container padding_bottom">
+  <div class="row align-items-center">
+    <section class="contact-section section_padding">
+      <div class="container-fluid h-custom">
+        <div class="row d-flex justify-content-center h-100">
+          <div class="col-md-9 col-lg-6 col-xl-5">
+            <img
+              src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+              class="img-fluid"
+              alt="Sample image"
+            />
+          </div>
+          <div class="col-md-8 col-lg-6 col-xl-4">
+            <toggle>
+              <div class="row justify-content-center">
+                <button
+                  id="patient-b"
+                  type="button"
+                  class="btn btn-outline-primary col-4 mr-2"
+                  style="padding-left: 1rem; padding-right: 1rem"
+                >
+                  Patient
+                </button>
+                <button
+                  id="counselor-b"
+                  type="button"
+                  class="btn btn-outline-primary col-4 ml-2"
+                  style="padding-left: 1rem; padding-right: 1rem"
+                >
+                  Counselor
+                </button>
+                {% if request.method == 'POST' and error%}
+                <label class="form-label my-3 text-danger">{{ field }}: {{ error }}</label>
+                {% endif %}
+              </div>
+            </toggle>
+            <div id="signup-form" class="my-5">
+              <form method="post" id="patient-f" style="display: none">
+                {% csrf_token %}
+                <div class="form-outline mb-4">
+                  <label class="form-label">Username</label>
+                  <input
+                          class="form-control"
+                          placeholder="Choose your username"
+                          name="username"
+                  />
+                </div>
+                  <!-- Password input -->
+                <div class="form-outline mb-3">
+                    <label class="form-label">Password</label>
+                    <input
+                      type="password"
+                      class="form-control"
+                      placeholder="Password"
+                      name="password"
+                    />
+                </div>
+                <div class="form-outline mb-3">
+                    <label class="form-label">Re-Enter Password</label>
+                    <input
+                      type="password"
+                      class="form-control form-control"
+                      placeholder="Password"
+                      name="repeat"
+                    />
+                </div>
+                <div class="form-outline mb-3">
+                    <label class="form-label">API Key</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="API Key"
+                      name="apik"
+                    />
+                </div>
+                <div class="form-outline mb-3">
+                    <label class="form-label">API Secret</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="API Secret"
+                      name="apis"
+                    />
+                </div>
+                <div class="form-outline mb-3">
+                    <label class="form-label">API Passphrase</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="API Passphrase"
+                      name="apip"
+                    />
+                </div>
+                <div class="text-center text-lg-start mt-4 pt-2">
+                    <button
+                      type="submit"
+                      class="btn btn-primary btn-lg"
+                      style="padding-left: 2.5rem; padding-right: 2.5rem"
+                    >
+                      Sign Up
+                    </button>
+                </div>
+              </form>
+              <form method="post" id="counselor-f" style="display: none" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-outline mb-4">
+                  <label class="form-label">Username</label>
+                  <input
+                          class="form-control"
+                          placeholder="Choose your username"
+                          name="username"
+                  />
+                </div>
+                  <!-- Password input -->
+                <div class="form-outline mb-3">
+                    <label class="form-label">Password</label>
+                    <input
+                      type="password"
+                      class="form-control"
+                      placeholder="Password"
+                      name="password"
+                    />
+                </div>
+                <div class="form-outline mb-3">
+                    <label class="form-label">Re-Enter Password</label>
+                    <input
+                      type="password"
+                      class="form-control form-control"
+                      placeholder="Password"
+                      name="repeat"
+                    />
+                </div>
+                <div class="form-outline mb-3">
+                    <label class="form-label">API Key</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="API Key"
+                      name="apik"
+                    />
+                </div>
+                <div class="form-outline mb-3">
+                    <label class="form-label">API Secret</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="API Secret"
+                      name="apis"
+                    />
+                </div>
+                <div class="form-outline mb-3">
+                    <label class="form-label">API Passphrase</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="API Passphrase"
+                      name="apip"
+                    />
+                </div>
+                <div class="text-center text-lg-start mt-4 pt-2">
+                    <button
+                      type="submit"
+                      class="btn btn-primary btn-lg"
+                      style="padding-left: 2.5rem; padding-right: 2.5rem"
+                    >
+                      Sign Up
+                    </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+<script>
+  $("#patient-b").click(function () {
+    $("#counselor-f").hide();
+    $("#patient-f").show();
+  });
+  $("#counselor-b").click(function () {
+    $("#patient-f").hide();
+    $("#counselor-f").show();
+  });
+</script>
+{% endblock %}

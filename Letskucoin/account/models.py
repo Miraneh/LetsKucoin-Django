@@ -10,8 +10,8 @@ class User(AbstractUser):
 
 class Position(models.Model):
     objects = models.Manager()
-    user_id = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    id = models.CharField(max_length=100)
+    kucoin_id = models.CharField(max_length=100)
+    user_id = models.IntegerField()
     currency = models.CharField(max_length=10)
     account_type = models.CharField(max_length=10)
     balance = models.FloatField()

@@ -6,5 +6,5 @@ class AccountConfig(AppConfig):
     name = "account"
 
     def ready(self):
-        from updater import start
+        from .scheduler import start
         start()
